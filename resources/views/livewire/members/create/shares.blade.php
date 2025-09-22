@@ -1,15 +1,26 @@
-<div>
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-        @foreach ($products as $product)
-            <div class="flex items-start">
-                <div class="flex items-center h-5">
-                    <input id="product_{{ $product->id }}" wire:model="selectedProducts" value="{{ $product->id }}" type="checkbox" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded">
+<div class="card">
+    <div class="card-header">
+        <h4 class="card-title">Shares Information</h4>
+    </div>
+    <div class="card-body">
+        <div class="basic-form">
+            <form>
+                <div class="row">
+                    @foreach ($products as $product)
+                        <div class="col-xl-6">
+                            <div class="form-group">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="product_{{ $product->id }}" wire:model="selectedProducts" value="{{ $product->id }}">
+                                    <label class="form-check-label" for="product_{{ $product->id }}">
+                                        {{ $product->name }}
+                                    </label>
+                                </div>
+                                <p class="text-muted">{{ $product->description }}</p>
+                            </div>
+                        </div>
+                    @endforeach
                 </div>
-                <div class="ml-3 text-sm">
-                    <label for="product_{{ $product->id }}" class="font-medium text-gray-700">{{ $product->name }}</label>
-                    <p class="text-gray-500">{{ $product->description }}</p>
-                </div>
-            </div>
-        @endforeach
+            </form>
+        </div>
     </div>
 </div>

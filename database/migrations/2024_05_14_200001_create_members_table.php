@@ -13,11 +13,10 @@ return new class extends Migration
     {
         Schema::create('members', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->string('member_no')->unique();
+            $table->string('member_no')->unique()->nullable();
             $table->foreignUuid('branch_id')->constrained('branches')->onDelete('cascade');
-            $table->string('first_name');
-            $table->string('middle_name')->nullable();
-            $table->string('last_name');
+            $table->string('name');
+            $table->string('member_type');
             $table->date('dob');
             $table->string('gender');
             $table->string('id_type')->nullable();
@@ -28,9 +27,11 @@ return new class extends Migration
             $table->string('phone')->nullable();
             $table->text('physical_address')->nullable();
             $table->text('postal_address')->nullable();
+            $table->decimal('monthly_contribution', 10, 2)->nullable();
+            $table->integer('retirement_age')->nullable();
             $table->enum('status', ['pending', 'active', 'dormant', 'suspended', 'terminated'])->default('pending');
             $table->string('scheme_type')->nullable();
-            $table->foreignId('created_by')->constrained('users')->onDelete('cascade');
+            $table->foreignId('created_by')->nullable()->constrained('users')->onDelete('set null');
             $table->foreignId('approved_by')->nullable()->constrained('users')->onDelete('set null');
             $table->timestamp('approved_at')->nullable();
             $table->json('meta')->nullable();

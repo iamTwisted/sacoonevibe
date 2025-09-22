@@ -8,6 +8,7 @@ use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\LoanController;
 use App\Http\Controllers\LoanTypeController;
 use App\Livewire\MemberRegistration;
+use App\Livewire\Members\CreateMember;
 
 /*
 |--------------------------------------------------------------------------
@@ -39,6 +40,7 @@ Route::middleware('auth')->group(function () {
         'index',
     ]);
     Route::get('member-registration', MemberRegistration::class)->name('member-registration');
+    Route::get('members/create', CreateMember::class)->name('members.create');
 
     Route::resource('loans', LoanController::class);
     Route::resource('loan-types', LoanTypeController::class);

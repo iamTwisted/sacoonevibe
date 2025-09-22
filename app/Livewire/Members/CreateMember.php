@@ -50,12 +50,37 @@ class CreateMember extends Component
 
     public function nextStep()
     {
+        $this->validateStep($this->currentStep);
         $this->currentStep++;
     }
 
     public function previousStep()
     {
         $this->currentStep--;
+    }
+
+    public function validateStep($step)
+    {
+        switch ($step) {
+            case 1:
+                $this->validate([
+                    'branch_id' => 'required',
+                    'member_type' => 'required',
+                    'name' => 'required',
+                    'id_number' => 'required',
+                    'phone' => 'required',
+                    'email' => 'required|email',
+                    'dob' => 'required|date',
+                    'gender' => 'required',
+                ]);
+                break;
+            case 2:
+                $this->validate([
+                    'monthly_contribution' => 'required|numeric',
+                    'retirement_age' => 'required|numeric',
+                ]);
+                break;
+        }
     }
 
     public function addBeneficiary()
@@ -71,18 +96,7 @@ class CreateMember extends Component
 
     public function submit()
     {
-        $this->validate([
-            'branch_id' => 'required',
-            'member_type' => 'required',
-            'name' => 'required',
-            'id_number' => 'required',
-            'phone' => 'required',
-            'email' => 'required|email',
-            'dob' => 'required|date',
-            'gender' => 'required',
-            'monthly_contribution' => 'required|numeric',
-            'retirement_age' => 'required|numeric',
-        ]);
+        $this->validateStep(2); // Also validate the last step before submitting
 
         $member = Member::create([
             'branch_id' => $this->branch_id,
@@ -107,6 +121,6 @@ class CreateMember extends Component
             $member->beneficiaries()->create($beneficiary);
         }
 
-        return redirect()->route('members.show', $member);
+        return redirect()->route('dashboard');
     }
 }

@@ -11,6 +11,13 @@ export default {
 
     theme: {
         extend: {
+            colors: {
+                'acronis-blue': '#00A9E0',
+                'acronis-dark-blue': '#002C5F',
+                'acronis-light-blue': '#83CBEC',
+                'acronis-gray': '#F0F3F5',
+                'acronis-dark-gray': '#6B7280',
+            },
             fontFamily: {
                 sans: ['Figtree', ...defaultTheme.fontFamily.sans],
             },

@@ -12,6 +12,24 @@
                     {{ __("You're logged in!") }}
                 </div>
             </div>
+
+            @can('view-users')
+            <div class="mt-4">
+                <a href="{{ route('users.index') }}" class="text-blue-500 hover:underline">Manage Users</a>
+            </div>
+            @endcan
+
+            @can('view-roles')
+            <div class="mt-4">
+                <a href="{{ route('roles.index') }}" class="text-blue-500 hover:underline">Manage Roles</a>
+            </div>
+            @endcan
+
+            @can('view-permissions')
+            <div class="mt-4">
+                <a href="{{ route('permissions.index') }}" class="text-blue-500 hover:underline">View Permissions</a>
+            </div>
+            @endcan
         </div>
     </div>
 </x-app-layout>

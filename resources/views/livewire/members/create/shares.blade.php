@@ -1,11 +1,15 @@
 <div>
-    <h3 class="text-lg font-medium text-gray-900">Share Products</h3>
-
-    @foreach($share_products as $product)
-        <div class="mt-4">
-            <label for="share_{{ $product->id }}" class="block text-sm font-medium text-gray-700">{{ $product->name }} (Min: {{ $product->minimum_shares ?? 'N/A' }})</label>
-            <input type="number" wire:model.defer="shares.{{ $product->id }}.quantity" id="share_{{ $product->id }}" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
-            <input type="hidden" wire:model.defer="shares.{{ $product->id }}.product_id" value="{{ $product->id }}">
-        </div>
-    @endforeach
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        @foreach ($products as $product)
+            <div class="flex items-start">
+                <div class="flex items-center h-5">
+                    <input id="product_{{ $product->id }}" wire:model="selectedProducts" value="{{ $product->id }}" type="checkbox" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded">
+                </div>
+                <div class="ml-3 text-sm">
+                    <label for="product_{{ $product->id }}" class="font-medium text-gray-700">{{ $product->name }}</label>
+                    <p class="text-gray-500">{{ $product->description }}</p>
+                </div>
+            </div>
+        @endforeach
+    </div>
 </div>

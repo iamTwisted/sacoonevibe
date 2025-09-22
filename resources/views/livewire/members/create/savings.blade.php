@@ -1,10 +1,14 @@
 <div>
-    <h3 class="text-lg font-medium text-gray-900">Savings Products</h3>
-
-    @foreach($savings_products as $product)
-        <div class="mt-4">
-            <label for="savings_{{ $product->id }}" class="block text-sm font-medium text-gray-700">{{ $product->name }}</label>
-            <input type="checkbox" wire:model.defer="savings.{{ $product->id }}.selected" id="savings_{{ $product->id }}" class="mt-1 focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div>
+            <label for="monthly_contribution" class="block text-sm font-medium text-gray-700">Monthly Contribution</label>
+            <input type="number" wire:model="monthly_contribution" id="monthly_contribution" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+            @error('monthly_contribution') <span class="text-red-500">{{ $message }}</span> @enderror
         </div>
-    @endforeach
+        <div>
+            <label for="retirement_age" class="block text-sm font-medium text-gray-700">Retirement Age</label>
+            <input type="number" wire:model="retirement_age" id="retirement_age" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+            @error('retirement_age') <span class="text-red-500">{{ $message }}</span> @enderror
+        </div>
+    </div>
 </div>

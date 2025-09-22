@@ -52,11 +52,11 @@ class CreateMember extends Component
             'dob' => 'required|date|before_or_equal:' . now()->subYears(config('sacco.min_age', 18)),
             'gender' => 'required|in:male,female,other',
             'id_type' => 'required|string|max:255',
-            'id_number' => ['required', 'string', Rule::unique('members', 'id_number')],
+            'id_number' => ['required', 'string', 'unique:members,id_number'],
             'kra_pin' => 'nullable|string|max:255',
             'nin' => 'nullable|string|max:255',
-            'email' => 'required|email|unique:members,email',
-            'phone' => 'required|string|unique:members,phone',
+            'email' => ['required', 'email', 'unique:members,email'],
+            'phone' => ['required', 'string', 'unique:members,phone'],
             'physical_address' => 'required|string',
             'postal_address' => 'nullable|string',
             'photo' => 'required|image|max:1024', // 1MB Max
@@ -101,7 +101,7 @@ class CreateMember extends Component
 
     public function submit()
     {
-        $this->validate($this->getStepRules());
+        $this->validate();
 
         if (collect($this->beneficiaries)->sum('allocation') != 100) {
             $this->addError('beneficiaries', 'The sum of all beneficiary allocations must be 100%.');

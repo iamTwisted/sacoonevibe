@@ -15,6 +15,7 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->string('name');
             $table->string('code')->unique();
+            $table->string('type')->nullable();
             $table->boolean('is_share_product')->default(false);
             $table->decimal('share_price', 15, 2)->nullable();
             $table->timestamps();
